@@ -5,6 +5,7 @@
 //
 
 #include "stdafx.h"
+#pragma warning( disable: 4996 )
 
 Anode::Anode(int state, char *name, int drivestate)
 {

@@ -15,3 +15,9 @@
 /Debug/*.pdb
 /Debug/*.sbr
 /Debug/*.idb
+
+
+*.tlog
+Debug/Logicl32.lastbuildstate
+Debug/Logicl32.unsuccessfulbuild
+*.log

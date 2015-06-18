@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#pragma warning( disable: 4996 )
 
 // WinSock is loaded on the fly these are pointers to functions used
 

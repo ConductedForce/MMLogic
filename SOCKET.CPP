@@ -5,6 +5,7 @@
 //
 
 #include "stdafx.h"
+#pragma warning( disable: 4996 )
 
 #ifdef _DEBUG
 #undef THIS_FILE
