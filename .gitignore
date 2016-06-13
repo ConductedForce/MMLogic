@@ -27,7 +27,5 @@ Debug/Mmlogic_manifest.rc
 *.manifest
 MMLogic.opensdf
 *.ipch
-*.chm
 Debug/Mmlogic.exe
 *.bsc
-*.chm
