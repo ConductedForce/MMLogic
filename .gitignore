@@ -21,3 +21,13 @@
 Debug/Logicl32.lastbuildstate
 Debug/Logicl32.unsuccessfulbuild
 *.log
+ipch/mmlogic-34e6f19a/ba6c36a7.ipch
+*.chm
+Debug/Mmlogic_manifest.rc
+*.manifest
+MMLogic.opensdf
+*.ipch
+*.chm
+Debug/Mmlogic.exe
+*.bsc
+*.chm
