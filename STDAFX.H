@@ -20,7 +20,7 @@
 #include <stdio.h>
 
 #include <mmsystem.h>
-#include <winsock.h>
+#include <WinSock2.h>
 #include <shlwapi.h>
 
 #include "toolbar.h"

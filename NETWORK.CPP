@@ -253,7 +253,7 @@ BOOL NetworkStartup()
 
    // tell winsock to wakeup
 
-   if (lpWSAStartup(MAKEWORD(1,1), &WSAData) != 0)
+   if (lpWSAStartup((1 << 8 ) | (1 & 0xff), &WSAData) != 0) // first arg is an unsigned long/WORD
    {
       ::MessageBox(::GetFocus(), WSAGetLastErrorString(0), "WSAStartup()", MB_OK | MB_ICONEXCLAMATION | MB_TASKMODAL);
       return FALSE;

@@ -69,12 +69,14 @@ void CPaletteBar::SetColumns(UINT nColumns)
 
    for (int i = 0; i < nCount; i++)
    {
+	  unsigned long t = ( 0 << 8 )  | (TBSTATE_WRAP & 0xff);
       UINT nStyle = GetButtonStyle(i);
       BOOL bWrap = (((i + 1) % nColumns) == 0);
-      if (bWrap)
-         nStyle |= TBBS_WRAPPED;
+      if (bWrap){
+         nStyle |= t;
+	  }
       else
-         nStyle &= ~TBBS_WRAPPED;
+         nStyle &= ~t;
       SetButtonStyle(i, nStyle);
    }
 

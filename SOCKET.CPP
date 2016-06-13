@@ -5,7 +5,16 @@
 //
 
 #include "stdafx.h"
-#pragma warning( disable: 4996 )
+#pragma warning( disable : 4996 )
+
+WORD GetHiWord(DWORD dwValue){
+	return (WORD) (dwValue >> 8);
+}
+
+WORD GetLoWord(DWORD dwValue){
+	return (WORD) (dwValue & 0xff);
+}
+
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -243,9 +252,9 @@ LRESULT CSocketWnd::OnNetConnectack( WPARAM /*wParam*/, LPARAM lParam)
    char Buffer[MAX_PACKET_SIZE];
    int status;
 
-   if (WSAGETASYNCERROR(lParam) != 0)
+   if (GetHiWord(lParam) != 0)
    {
-      MessageBox(WSAGetLastErrorString(WSAGETASYNCERROR(lParam)), "WSAAsyncGetHostByNameCallBack()");
+      MessageBox(WSAGetLastErrorString(GetHiWord(lParam)), "WSAAsyncGetHostByNameCallBack()");
       return 0L;
    }
 
@@ -256,7 +265,7 @@ LRESULT CSocketWnd::OnNetConnectack( WPARAM /*wParam*/, LPARAM lParam)
 
       // update flags based on event type
 
-      switch (WSAGETSELECTEVENT(lParam))
+      switch (GetLoWord(lParam))
       {
       case FD_READ:
          {
@@ -289,8 +298,8 @@ LRESULT CSocketWnd::OnNetConnectack( WPARAM /*wParam*/, LPARAM lParam)
                // Queue up each char
 
                for (i=0;i<status;i++)
-               {
-                  pDoc->NetworkMessageQueue.AddTail(new ANetworkMessage(pObj, pDoc, WSAGETSELECTEVENT(lParam), Buffer[i]));
+			   {
+                  pDoc->NetworkMessageQueue.AddTail(new ANetworkMessage(pObj, pDoc, GetLoWord(lParam), Buffer[i]));
                   pDoc->NetworkMessageQueue.AddTail(new ANetworkMessage(pObj, pDoc, 0L, 0));
                }
             }
@@ -311,7 +320,7 @@ LRESULT CSocketWnd::OnNetConnectack( WPARAM /*wParam*/, LPARAM lParam)
             // flag it's ok to start firing
 
             bConnected = TRUE;
-            pDoc->NetworkMessageQueue.AddTail(new ANetworkMessage(pObj, pDoc, WSAGETSELECTEVENT(lParam), 0));
+            pDoc->NetworkMessageQueue.AddTail(new ANetworkMessage(pObj, pDoc, GetLoWord(lParam), 0));
             break;
          }
 
@@ -326,7 +335,7 @@ LRESULT CSocketWnd::OnNetConnectack( WPARAM /*wParam*/, LPARAM lParam)
             {
                MessageBox(WSAGetLastErrorString(0), "accept(receivesock)");
             }
-            pDoc->NetworkMessageQueue.AddTail(new ANetworkMessage(pObj, pDoc, WSAGETSELECTEVENT(lParam), 0));
+            pDoc->NetworkMessageQueue.AddTail(new ANetworkMessage(pObj, pDoc, GetLoWord(lParam), 0));
             break;
          }
 
@@ -335,7 +344,7 @@ LRESULT CSocketWnd::OnNetConnectack( WPARAM /*wParam*/, LPARAM lParam)
             // done
 
             bConnected = FALSE;
-            pDoc->NetworkMessageQueue.AddTail(new ANetworkMessage(pObj, pDoc, WSAGETSELECTEVENT(lParam), 0));
+            pDoc->NetworkMessageQueue.AddTail(new ANetworkMessage(pObj, pDoc, GetLoWord(lParam), 0));
             break;
          }
       }
@@ -350,9 +359,9 @@ LRESULT CSocketWnd::OnNetConnectfinish( WPARAM /*wParam*/, LPARAM lParam)
    // should these not be automatic?
    SOCKADDR_IN sockAddr;
 
-   if (WSAGETASYNCERROR(lParam) != 0)
+   if (GetHiWord(lParam) != 0)
    {
-      MessageBox(WSAGetLastErrorString(WSAGETASYNCERROR(lParam)), "WSAAsyncGetHostByNameCallBack()");
+      MessageBox(WSAGetLastErrorString(GetHiWord(lParam)), "WSAAsyncGetHostByNameCallBack()");
       return 0L;
    }
 
@@ -415,9 +424,9 @@ LRESULT CSocketWnd::OnNetAcceptfinish( WPARAM /*wParam*/, LPARAM lParam)
 
    SOCKADDR_IN sockAddr;  /* Local socket - internet style */
 
-   if (WSAGETASYNCERROR(lParam) != 0)
+   if (GetHiWord(lParam) != 0)
    {
-      MessageBox(WSAGetLastErrorString(WSAGETASYNCERROR(lParam)), "WSAAsyncGetHostByNameCallBack()");
+      MessageBox(WSAGetLastErrorString(GetHiWord(lParam)), "WSAAsyncGetHostByNameCallBack()");
       return 0L;
    }
 
