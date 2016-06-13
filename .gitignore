@@ -34,3 +34,4 @@ Debug/Mmlogic.exe
 /ipch
 *.suo
 UpgradeLog.htm
+*.vcproj
