@@ -204,17 +204,21 @@ BOOL MyBeep(DWORD dwFreq, DWORD dwDuration)
 
    if (dwFreq < 37) dwFreq = 37;
 
-   count = (WORD) (1193180L / dwFreq);
-   count_lo = LOBYTE(count);
-   count_hi = HIBYTE(count);
+   count = (WORD) 1193180L / dwFreq;
+   //count_lo = LOBYTE(count);
+   //count_hi = HIBYTE(count);
+   
+   unsigned char upper = (BYTE) (count >> 8);
+   unsigned char lower = (BYTE) (count & 0xff);
+
 
    _asm
    {
       mov al, 0xB6
          out 0x43, al
-         mov al, count_lo
+         mov al, lower
          out 0x42, al
-         mov al, count_hi
+         mov al, upper
          out 0x42, al
          xor al, al
          in al, 0x61
