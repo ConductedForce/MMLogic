@@ -29,3 +29,8 @@ MMLogic.opensdf
 *.ipch
 Debug/Mmlogic.exe
 *.bsc
+
+/Backup
+/ipch
+*.suo
+UpgradeLog.htm
